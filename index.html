@@ -148,6 +148,35 @@
             color: #333;
             font-size: 14px;
         }
+
+        /* Debug Info */
+        .debug-info {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #00ff00;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-family: monospace;
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 10000;
+            line-height: 1.4;
+        }
+
+        .debug-info .debug-title {
+            color: #ffff00;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .debug-info .debug-line {
+            margin: 3px 0;
+            word-break: break-all;
+        }
     </style>
 </head>
 <body>
@@ -210,6 +239,12 @@
         </div>
     </div>
 
+    <!-- Debug Info Panel -->
+    <div class="debug-info" id="debugInfo">
+        <div class="debug-title">🔍 DEBUG INFO (tap to hide)</div>
+        <div id="debugContent"></div>
+    </div>
+
     <script>
         // Language translations
         const translations = {
@@ -246,13 +281,26 @@
         function isInAppBrowser() {
             const userAgent = navigator.userAgent.toLowerCase();
             
-            // Check for TikTok in-app browser
-            if (/tiktok/i.test(userAgent)) {
+            // Log for debugging (remove in production if needed)
+            console.log('User Agent:', navigator.userAgent);
+            
+            // Check for TikTok in-app browser (multiple patterns)
+            if (userAgent.includes('tiktok') || 
+                userAgent.includes('musical_ly') || 
+                userAgent.includes('bytedance')) {
+                console.log('Detected: TikTok app');
                 return true;
             }
             
             // Check for other common in-app browsers
             if (/fban|fbav|instagram|line|micromessenger|snapchat|twitter/i.test(userAgent)) {
+                console.log('Detected: Other in-app browser');
+                return true;
+            }
+            
+            // Additional check: if it's a webview (common in mobile apps)
+            if (userAgent.includes('wv') || userAgent.includes('webview')) {
+                console.log('Detected: WebView');
                 return true;
             }
             
@@ -262,6 +310,7 @@
         // Detect if user is in a real browser
         function isRealBrowser() {
             const userAgent = navigator.userAgent.toLowerCase();
+            const vendor = navigator.vendor.toLowerCase();
             
             // If in app browser, return false
             if (isInAppBrowser()) {
@@ -269,12 +318,15 @@
             }
             
             // Check if it's a real browser (Chrome, Safari, Firefox, Edge, etc.)
-            const isChrome = /chrome/.test(userAgent) && /google inc/.test(navigator.vendor.toLowerCase());
-            const isSafari = /safari/.test(userAgent) && /apple computer/.test(navigator.vendor.toLowerCase());
+            const isChrome = /chrome/.test(userAgent) && /google inc/.test(vendor);
+            const isSafari = /safari/.test(userAgent) && /apple/.test(vendor);
             const isFirefox = /firefox/.test(userAgent);
             const isEdge = /edg/.test(userAgent);
             
-            return isChrome || isSafari || isFirefox || isEdge;
+            const result = isChrome || isSafari || isFirefox || isEdge;
+            console.log('Is Real Browser:', result);
+            
+            return result;
         }
 
         // Show appropriate content
@@ -324,6 +376,33 @@
             }
         }
 
+        // Show debug info
+        function showDebugInfo() {
+            const userAgent = navigator.userAgent;
+            const vendor = navigator.vendor;
+            const isInApp = isInAppBrowser();
+            const isRealBr = isRealBrowser();
+            
+            const debugContent = document.getElementById('debugContent');
+            debugContent.innerHTML = `
+                <div class="debug-line"><strong>User Agent:</strong> ${userAgent}</div>
+                <div class="debug-line"><strong>Vendor:</strong> ${vendor}</div>
+                <div class="debug-line"><strong>In-App Browser:</strong> ${isInApp ? 'YES' : 'NO'}</div>
+                <div class="debug-line"><strong>Real Browser:</strong> ${isRealBr ? 'YES' : 'NO'}</div>
+                <div class="debug-line"><strong>Showing:</strong> ${isRealBr ? 'GAMES' : 'INSTRUCTIONS'}</div>
+            `;
+        }
+
+        // Toggle debug panel
+        function toggleDebugPanel() {
+            const debugPanel = document.getElementById('debugInfo');
+            if (debugPanel.style.display === 'none') {
+                debugPanel.style.display = 'block';
+            } else {
+                debugPanel.style.display = 'none';
+            }
+        }
+
         // Show appropriate content based on browser
         window.addEventListener('DOMContentLoaded', function() {
             // Load language preference
@@ -336,6 +415,12 @@
             
             // Show appropriate content
             showContent();
+            
+            // Show debug info
+            showDebugInfo();
+            
+            // Set up debug panel toggle
+            document.getElementById('debugInfo').addEventListener('click', toggleDebugPanel);
         });
     </script>
 </body>
