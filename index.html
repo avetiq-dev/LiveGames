@@ -1,82 +1,163 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Open in Browser</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .notice {
-      display: none;
-      padding: 20px;
-      background: #fffbea;
-      border: 1px solid #e2c044;
-      border-radius: 5px;
-      margin-bottom: 20px;
-    }
-    a.button {
-      display: inline-block;
-      padding: 12px 20px;
-      background: #007bff;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .instructions {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .instructions h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .instructions p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .instructions .browser-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .instructions .browser-icons div {
+            text-align: center;
+        }
+
+        .instructions .browser-icons span {
+            display: block;
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .games {
+            display: none;
+        }
+
+        .game-item {
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .game-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Instructions for non-Chrome/Safari users -->
+        <div class="instructions" id="instructions">
+            <h1>⚠️ Browser Not Supported</h1>
+            <p>To view this content, please open this link in <strong>Chrome</strong> or <strong>Safari</strong>.</p>
+            <p>Copy the URL and paste it into one of these browsers:</p>
+            <div class="browser-icons">
+                <div>
+                    <span>🌐</span>
+                    <strong>Chrome</strong>
+                </div>
+                <div>
+                    <span>🧭</span>
+                    <strong>Safari</strong>
+                </div>
+            </div>
+        </div>
 
-<h2>Open in External Browser</h2>
+        <!-- Game images for Chrome/Safari users -->
+        <div class="games" id="games">
+            <div class="game-item">
+                <a href="https://1wwbud.life/?open=register&p=r4yx" target="_blank">
+                    <img src="https://1win.run/promo-files-uploads/bcab5c7b57fafafd6b0a1079e1b2a33e041751f3cf4aaf332e.jpg" alt="Game 1" />
+                </a>
+            </div>
+            
+            <div class="game-item">
+                <a href="https://1wwbud.life/?open=register&p=r4yx" target="_blank">
+                    <img src="https://1win.run/promo-files-uploads/bcab5c7b57fafafd6b0a1079e1b2a33e041751f3cf4aaf332e.jpg" alt="Game 2" />
+                </a>
+            </div>
+            
+            <div class="game-item">
+                <a href="https://1wwbud.life/?open=register&p=r4yx" target="_blank">
+                    <img src="https://1win.run/promo-files-uploads/bcab5c7b57fafafd6b0a1079e1b2a33e041751f3cf4aaf332e.jpg" alt="Game 3" />
+                </a>
+            </div>
+        </div>
+    </div>
 
-<div id="androidNotice" class="notice">
-  <strong>You're using TikTok on Android.</strong><br>
-  Tap the button below to open the link in Chrome (or your default browser):<br><br>
-  <a id="btnChrome" class="button">Open in Chrome</a>
-  <br><br>
-  <a id="btnDefault" class="button">Open in Browser</a>
-</div>
+    <script>
+        // Detect browser
+        function isChromeOrSafari() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const isChrome = /chrome/.test(userAgent) && /google inc/.test(navigator.vendor.toLowerCase());
+            const isSafari = /safari/.test(userAgent) && /apple computer/.test(navigator.vendor.toLowerCase());
+            
+            // More accurate Chrome detection (excludes Edge, Opera, etc.)
+            const isRealChrome = isChrome && !/edg|opr|brave/.test(userAgent);
+            
+            return isRealChrome || isSafari;
+        }
 
-<div id="iosNotice" class="notice">
-  <strong>You're using TikTok on iPhone / iPad.</strong><br>
-  TikTok’s in-app browser may block direct opening in Safari or other browsers.<br><br>
-  Please tap the “Share” button <br>
-  ▸ then tap “Open in Browser” (Safari).
-</div>
-
-<div id="otherNotice" class="notice">
-  <strong>Open in your browser:</strong><br>
-  <a id="btnOther" class="button">Go to Link</a>
-</div>
-
-<script>
-  const DEST_URL = "https://1wwbud.life/?open=register&p=r4yx";
-  const ua = navigator.userAgent.toLowerCase();
-  const isTikTok = ua.includes("tiktok") || ua.includes("musically") || ua.includes("okhttp");
-  const isIOS = /iphone|ipad|ipod/.test(ua);
-  const isAndroid = /android/.test(ua);
-
-  const androidNotice = document.getElementById("androidNotice");
-  const iosNotice = document.getElementById("iosNotice");
-  const otherNotice = document.getElementById("otherNotice");
-
-  const btnChrome = document.getElementById("btnChrome");
-  const btnDefault = document.getElementById("btnDefault");
-  const btnOther = document.getElementById("btnOther");
-
-  // Set link hrefs
-  btnChrome.href = "intent://" + DEST_URL.replace(/^https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
-  btnDefault.href = DEST_URL;
-  btnOther.href = DEST_URL;
-
-  if (isTikTok && isAndroid) {
-    androidNotice.style.display = "block";
-  } else if (isTikTok && isIOS) {
-    iosNotice.style.display = "block";
-  } else {
-    otherNotice.style.display = "block";
-  }
-</script>
-
+        // Show appropriate content based on browser
+        window.addEventListener('DOMContentLoaded', function() {
+            const instructions = document.getElementById('instructions');
+            const games = document.getElementById('games');
+            
+            if (isChromeOrSafari()) {
+                games.classList.add('show');
+            } else {
+                instructions.classList.add('show');
+            }
+        });
+    </script>
 </body>
 </html>
