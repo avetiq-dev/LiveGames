@@ -1,1 +1,68 @@
-<p>test</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TikTok Browser Test</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    #browserNotice {
+      display: none;
+      padding: 15px;
+      background: #ffe8e8;
+      border: 1px solid #ff4b4b;
+      margin-bottom: 20px;
+    }
+    a.button {
+      display: inline-block;
+      padding: 10px 15px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>TikTok Browser Test Page</h2>
+
+<div id="browserNotice">
+  <b>Detected TikTok in-app browser.</b><br>
+  Click below to open this page in Chrome or Safari:
+  <br><br>
+
+  <!-- Chrome (Android) -->
+  <a class="button" 
+     href="intent://yourdomain.com#Intent;scheme=https;package=com.android.chrome;end">
+     Open in Chrome (Android)
+  </a>
+  <br><br>
+
+  <!-- Chrome (iOS) -->
+  <a class="button"
+     href="googlechrome://navigate?url=https://yourdomain.com">
+     Open in Chrome (iOS)
+  </a>
+  <br><br>
+
+  <!-- Safari -->
+  <a class="button" href="https://yourdomain.com" target="_blank">
+    Open in Safari
+  </a>
+</div>
+
+<script>
+  // Detect TikTok in-app browser
+  function isTikTokBrowser() {
+    return navigator.userAgent.includes("TikTok");
+  }
+
+  if (isTikTokBrowser()) {
+    document.getElementById("browserNotice").style.display = "block";
+  }
+</script>
+
+</body>
+</html>
