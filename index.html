@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Games</title>
     <style>
         * {
@@ -11,103 +11,225 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e8ba3 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .container {
             max-width: 600px;
             width: 100%;
+            max-height: calc(100vh - 20px);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .instructions {
             display: none;
-            background: white;
-            padding: 40px;
+            background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+            padding: 25px 30px;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            overflow: hidden;
         }
 
         .instructions h1 {
-            color: #333;
-            margin-bottom: 20px;
+            color: #1e3c72;
+            margin-bottom: 15px;
             font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .instructions p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            font-size: 16px;
+            color: #4a5568;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .instructions p strong {
+            color: #2d3748;
+            font-weight: 600;
         }
 
         .instructions .steps {
-            background: #f5f5f5;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
+            background: linear-gradient(135deg, #e8f0fe 0%, #f1f5f9 100%);
+            padding: 18px;
+            border-radius: 14px;
+            margin: 15px 0;
             text-align: left;
+            border: 2px solid #dbeafe;
+            box-shadow: 0 4px 12px rgba(30, 60, 114, 0.08);
         }
 
         .instructions .steps p {
             margin-bottom: 10px;
+            color: #1e3c72;
+            font-weight: 600;
+            font-size: 15px;
         }
 
         .instructions .steps ol {
             margin-left: 20px;
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
         .instructions .steps li {
             margin-bottom: 8px;
-            color: #444;
+            color: #334155;
+            font-size: 14px;
+        }
+
+        .instructions .steps li strong {
+            color: #1e3c72;
+            background: rgba(30, 60, 114, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         .instructions .browser-icons {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
+            gap: 25px;
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 2px solid #e5e7eb;
         }
 
         .instructions .browser-icons div {
             text-align: center;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease;
+        }
+
+        .instructions .browser-icons div:hover {
+            transform: translateY(-3px);
         }
 
         .instructions .browser-icons span {
             display: block;
-            font-size: 48px;
-            margin-bottom: 10px;
+            font-size: 36px;
+            margin-bottom: 6px;
+        }
+
+        .instructions .browser-icons strong {
+            display: block;
+            color: #1e3c72;
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .games {
             display: none;
+            max-height: calc(100vh - 20px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 5px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(30, 60, 114, 0.3) transparent;
+        }
+
+        .games::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .games::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .games::-webkit-scrollbar-thumb {
+            background: rgba(30, 60, 114, 0.3);
+            border-radius: 3px;
+        }
+
+        .games::-webkit-scrollbar-thumb:hover {
+            background: rgba(30, 60, 114, 0.5);
         }
 
         .game-item {
-            margin-bottom: 20px;
-            border-radius: 15px;
+            margin-bottom: 15px;
+            border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .game-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .game-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         .game-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .game-item a {
+            display: block;
+            position: relative;
         }
 
         .game-item img {
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .game-item:hover img {
+            transform: scale(1.05);
         }
 
         .show {
@@ -119,41 +241,53 @@
             position: fixed;
             top: 10px;
             left: 10px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 10px 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 249, 250, 0.98) 100%);
+            padding: 8px 12px;
+            border-radius: 12px;
+            box-shadow: 
+                0 6px 18px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
             z-index: 9999;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .language-selector select {
-            padding: 8px 12px;
-            border: 2px solid #667eea;
-            border-radius: 5px;
+            padding: 6px 10px;
+            border: 2px solid #2a5298;
+            border-radius: 6px;
             background: white;
-            color: #333;
-            font-size: 14px;
+            color: #1e3c72;
+            font-size: 13px;
             cursor: pointer;
             outline: none;
-            font-weight: 500;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         }
 
         .language-selector select:hover {
-            border-color: #764ba2;
+            border-color: #1e3c72;
+            box-shadow: 0 4px 12px rgba(30, 60, 114, 0.15);
+        }
+
+        .language-selector select:focus {
+            border-color: #1e3c72;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
         }
 
         .language-selector label {
-            margin-right: 8px;
+            margin-right: 6px;
             font-weight: bold;
-            color: #333;
+            color: #1e3c72;
             font-size: 14px;
         }
 
         /* Arrow pointing to menu */
         .arrow-to-menu {
             position: fixed;
-            top: 15px;
-            right: 50px;
+            top: 12px;
+            right: 45px;
             z-index: 9999;
             display: none;
         }
@@ -163,8 +297,8 @@
         }
 
         .arrow-to-menu svg {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
             animation: pointToMenu 1.5s ease-in-out infinite;
         }
@@ -175,25 +309,29 @@
                 opacity: 1;
             }
             50% {
-                transform: translate(8px, -8px);
+                transform: translate(6px, -6px);
                 opacity: 0.7;
             }
         }
 
         .arrow-text {
             position: fixed;
-            top: 80px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            color: #333;
-            padding: 8px 12px;
-            border-radius: 8px;
+            top: 70px;
+            right: 15px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 10px;
             font-size: 13px;
-            font-weight: bold;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            box-shadow: 
+                0 6px 18px rgba(30, 60, 114, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.3) inset;
             z-index: 9999;
             display: none;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.3px;
         }
 
         .arrow-text.show {
@@ -204,10 +342,73 @@
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
+                box-shadow: 
+                    0 6px 18px rgba(30, 60, 114, 0.4),
+                    0 0 0 1px rgba(255, 255, 255, 0.3) inset;
             }
             50% {
-                transform: scale(1.05);
+                transform: scale(1.06);
+                box-shadow: 
+                    0 8px 24px rgba(30, 60, 114, 0.5),
+                    0 0 0 1px rgba(255, 255, 255, 0.4) inset;
             }
+        }
+
+        /* Test Mode Button (always visible for testing) */
+        .test-mode-btn {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            z-index: 10000;
+            display: block;
+            box-shadow: 
+                0 6px 18px rgba(16, 185, 129, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.3px;
+        }
+
+        .test-mode-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 24px rgba(16, 185, 129, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+        }
+
+        .test-mode-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* Test Mode Info Banner */
+        .test-mode-info {
+            position: fixed;
+            bottom: 70px;
+            right: 15px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 9999;
+            display: none;
+            box-shadow: 
+                0 6px 18px rgba(245, 158, 11, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .test-mode-info.show {
+            display: block;
         }
     </style>
 </head>
@@ -217,10 +418,10 @@
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                    <polygon points="0 0, 10 3, 0 6" fill="#FF0050" />
+                    <polygon points="0 0, 10 3, 0 6" fill="#1e3c72" />
                 </marker>
             </defs>
-            <line x1="10" y1="90" x2="85" y2="15" stroke="#FF0050" stroke-width="4" marker-end="url(#arrowhead)" />
+            <line x1="10" y1="90" x2="85" y2="15" stroke="#1e3c72" stroke-width="5" marker-end="url(#arrowhead)" />
         </svg>
     </div>
     <div class="arrow-text" id="arrowText">👆 Սեղմեք այստեղ</div>
@@ -284,6 +485,10 @@
         </div>
     </div>
 
+    <!-- Test Mode Button (always visible for testing) -->
+    <button class="test-mode-btn" id="testModeBtn">🧪 Toggle View</button>
+    <div class="test-mode-info" id="testModeInfo">Press Ctrl/⌘ + T to toggle</div>
+
     <script>
         // Language translations
         const translations = {
@@ -318,6 +523,16 @@
 
         // Current language (default: Armenian)
         let currentLanguage = 'hy';
+
+        // Test mode (can be activated in any browser for testing)
+        let testModeActive = false;
+        let forceTestMode = false; // For testing in regular browsers
+
+        // Check for test mode query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('test') === 'true') {
+            forceTestMode = true;
+        }
 
         // Detect if user is in TikTok app or in-app browser
         function isInAppBrowser() {
@@ -368,22 +583,57 @@
             const games = document.getElementById('games');
             const arrowToMenu = document.getElementById('arrowToMenu');
             const arrowText = document.getElementById('arrowText');
+            const testModeBtn = document.getElementById('testModeBtn');
+            const testModeInfo = document.getElementById('testModeInfo');
             
             // Remove existing show classes
             instructions.classList.remove('show');
             games.classList.remove('show');
             arrowToMenu.classList.remove('show');
             arrowText.classList.remove('show');
+            testModeInfo.classList.remove('show');
             
-            // Use actual browser detection
-            if (isRealBrowser()) {
+            const inApp = !isRealBrowser();
+            const inTestMode = forceTestMode || inApp; // Enable test mode in regular browsers with ?test=true
+            
+            // Determine what to show based on test mode
+            let showBrowserView = false;
+            
+            if (inTestMode && testModeActive) {
+                // Test mode active - show instructions view (TikTok in-app simulation)
+                showBrowserView = false;
+                testModeBtn.textContent = '🌐 Show Browser View';
+            } else if (inTestMode) {
+                // Test mode available but off - show browser view (games)
+                showBrowserView = true;
+                testModeBtn.textContent = '📱 Show Instructions View';
+                testModeInfo.classList.add('show');
+            } else {
+                // In real browser without test mode - always show games
+                showBrowserView = true;
+                testModeBtn.textContent = '🧪 Enable Test Mode';
+            }
+            
+            if (showBrowserView) {
                 games.classList.add('show');
             } else {
                 instructions.classList.add('show');
-                // Show arrow only when in TikTok app
-                arrowToMenu.classList.add('show');
-                arrowText.classList.add('show');
+                // Show arrow only when showing instructions (not in test mode)
+                if (!testModeActive) {
+                    arrowToMenu.classList.add('show');
+                    arrowText.classList.add('show');
+                }
             }
+        }
+
+        // Toggle test mode
+        function toggleTestMode() {
+            // Enable force test mode if not already enabled (for regular browsers)
+            if (!forceTestMode && !isInAppBrowser()) {
+                forceTestMode = true;
+            }
+            testModeActive = !testModeActive;
+            showContent();
         }
 
         // Change language
@@ -425,6 +675,21 @@
             // Set up language selector
             document.getElementById('languageSelect').addEventListener('change', function(e) {
                 changeLanguage(e.target.value);
+            });
+            
+            // Set up test mode button
+            document.getElementById('testModeBtn').addEventListener('click', toggleTestMode);
+            
+            // Keyboard shortcut: Ctrl+T or Cmd+T to toggle test mode
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 't') {
+                    e.preventDefault();
+                    // Enable force test mode if not already enabled
+                    if (!forceTestMode && !isInAppBrowser()) {
+                        forceTestMode = true;
+                    }
+                    toggleTestMode();
+                }
             });
             
             // Show appropriate content
