@@ -48,6 +48,28 @@
             font-size: 16px;
         }
 
+        .instructions .steps {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .instructions .steps p {
+            margin-bottom: 10px;
+        }
+
+        .instructions .steps ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .instructions .steps li {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
         .instructions .browser-icons {
             display: flex;
             justify-content: center;
@@ -91,15 +113,69 @@
         .show {
             display: block;
         }
+
+        /* Language Selector Styles */
+        .language-selector {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+        }
+
+        .language-selector select {
+            padding: 8px 12px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            background: white;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            font-weight: 500;
+        }
+
+        .language-selector select:hover {
+            border-color: #764ba2;
+        }
+
+        .language-selector label {
+            margin-right: 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <label for="languageSelect">🌐</label>
+        <select id="languageSelect">
+            <option value="ru">Русский</option>
+            <option value="en">English</option>
+            <option value="hy">Հայերեն</option>
+        </select>
+    </div>
+
     <div class="container">
-        <!-- Instructions for non-Chrome/Safari users -->
+        <!-- Instructions for TikTok app users -->
         <div class="instructions" id="instructions">
-            <h1>⚠️ Browser Not Supported</h1>
-            <p>To view this content, please open this link in <strong>Chrome</strong> or <strong>Safari</strong>.</p>
-            <p>Copy the URL and paste it into one of these browsers:</p>
+            <h1 id="instructionTitle">📱 Open in Browser</h1>
+            <p><strong id="instructionText1">You're viewing this in the TikTok app.</strong></p>
+            <p id="instructionText2">To access the games, please open this link in your browser:</p>
+            
+            <div class="steps">
+                <p><strong id="instructionStepsTitle">How to open in browser:</strong></p>
+                <ol>
+                    <li id="instructionStep1">Tap the <strong>"..."</strong> menu (top right corner)</li>
+                    <li id="instructionStep2">Select <strong>"Open in Browser"</strong> or <strong>"Open in Safari/Chrome"</strong></li>
+                </ol>
+            </div>
+
             <div class="browser-icons">
                 <div>
                     <span>🌐</span>
@@ -112,7 +188,7 @@
             </div>
         </div>
 
-        <!-- Game images for Chrome/Safari users -->
+        <!-- Game images for browser users -->
         <div class="games" id="games">
             <div class="game-item">
                 <a href="https://1wwbud.life/?open=register&p=r4yx" target="_blank">
@@ -135,29 +211,133 @@
     </div>
 
     <script>
-        // Detect browser
-        function isChromeOrSafari() {
+        // Language translations
+        const translations = {
+            ru: {
+                instructionTitle: '📱 Открыть в браузере',
+                instructionText1: 'Вы просматриваете это в приложении TikTok.',
+                instructionText2: 'Чтобы получить доступ к играм, откройте эту ссылку в вашем браузере:',
+                instructionStepsTitle: 'Как открыть в браузере:',
+                instructionStep1: 'Нажмите на меню <strong>"..."</strong> (в правом верхнем углу)',
+                instructionStep2: 'Выберите <strong>"Открыть в браузере"</strong> или <strong>"Открыть в Safari/Chrome"</strong>'
+            },
+            en: {
+                instructionTitle: '📱 Open in Browser',
+                instructionText1: 'You\'re viewing this in the TikTok app.',
+                instructionText2: 'To access the games, please open this link in your browser:',
+                instructionStepsTitle: 'How to open in browser:',
+                instructionStep1: 'Tap the <strong>"..."</strong> menu (top right corner)',
+                instructionStep2: 'Select <strong>"Open in Browser"</strong> or <strong>"Open in Safari/Chrome"</strong>'
+            },
+            hy: {
+                instructionTitle: '📱 Բացել բրաուզերում',
+                instructionText1: 'Դուք դա դիտում եք TikTok հավելվածում։',
+                instructionText2: 'Խաղերին մուտք գործելու համար, խնդրում ենք բացել այս հղումը ձեր բրաուզերում:',
+                instructionStepsTitle: 'Ինչպես բացել բրաուզերում:',
+                instructionStep1: 'Սեղմեք <strong>"..."</strong> մենյուն (վերևի աջ անկյունում)',
+                instructionStep2: 'Ընտրեք <strong>"Բացել բրաուզերում"</strong> կամ <strong>"Բացել Safari/Chrome-ում"</strong>'
+            }
+        };
+
+        // Current language (default: Russian)
+        let currentLanguage = 'ru';
+
+        // Detect if user is in TikTok app or in-app browser
+        function isInAppBrowser() {
             const userAgent = navigator.userAgent.toLowerCase();
-            const isChrome = /chrome/.test(userAgent) && /google inc/.test(navigator.vendor.toLowerCase());
-            const isSafari = /safari/.test(userAgent) && /apple computer/.test(navigator.vendor.toLowerCase());
             
-            // More accurate Chrome detection (excludes Edge, Opera, etc.)
-            const isRealChrome = isChrome && !/edg|opr|brave/.test(userAgent);
+            // Check for TikTok in-app browser
+            if (/tiktok/i.test(userAgent)) {
+                return true;
+            }
             
-            return isRealChrome || isSafari;
+            // Check for other common in-app browsers
+            if (/fban|fbav|instagram|line|micromessenger|snapchat|twitter/i.test(userAgent)) {
+                return true;
+            }
+            
+            return false;
         }
 
-        // Show appropriate content based on browser
-        window.addEventListener('DOMContentLoaded', function() {
+        // Detect if user is in a real browser
+        function isRealBrowser() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            
+            // If in app browser, return false
+            if (isInAppBrowser()) {
+                return false;
+            }
+            
+            // Check if it's a real browser (Chrome, Safari, Firefox, Edge, etc.)
+            const isChrome = /chrome/.test(userAgent) && /google inc/.test(navigator.vendor.toLowerCase());
+            const isSafari = /safari/.test(userAgent) && /apple computer/.test(navigator.vendor.toLowerCase());
+            const isFirefox = /firefox/.test(userAgent);
+            const isEdge = /edg/.test(userAgent);
+            
+            return isChrome || isSafari || isFirefox || isEdge;
+        }
+
+        // Show appropriate content
+        function showContent() {
             const instructions = document.getElementById('instructions');
             const games = document.getElementById('games');
             
-            if (isChromeOrSafari()) {
+            // Remove existing show classes
+            instructions.classList.remove('show');
+            games.classList.remove('show');
+            
+            // Use actual browser detection
+            if (isRealBrowser()) {
                 games.classList.add('show');
             } else {
                 instructions.classList.add('show');
             }
+        }
+
+        // Change language
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            const texts = translations[lang];
+            
+            // Update all text elements
+            document.getElementById('instructionTitle').innerHTML = texts.instructionTitle;
+            document.getElementById('instructionText1').textContent = texts.instructionText1;
+            document.getElementById('instructionText2').textContent = texts.instructionText2;
+            document.getElementById('instructionStepsTitle').textContent = texts.instructionStepsTitle;
+            document.getElementById('instructionStep1').innerHTML = texts.instructionStep1;
+            document.getElementById('instructionStep2').innerHTML = texts.instructionStep2;
+            
+            // Save language preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Load saved language preference
+        function loadLanguagePreference() {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            if (savedLang && translations[savedLang]) {
+                currentLanguage = savedLang;
+                document.getElementById('languageSelect').value = savedLang;
+                changeLanguage(savedLang);
+            } else {
+                // Default to Russian
+                changeLanguage('ru');
+            }
+        }
+
+        // Show appropriate content based on browser
+        window.addEventListener('DOMContentLoaded', function() {
+            // Load language preference
+            loadLanguagePreference();
+            
+            // Set up language selector
+            document.getElementById('languageSelect').addEventListener('change', function(e) {
+                changeLanguage(e.target.value);
+            });
+            
+            // Show appropriate content
+            showContent();
         });
     </script>
 </body>
 </html>
+
