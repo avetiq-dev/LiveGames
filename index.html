@@ -153,84 +153,6 @@
             font-weight: 600;
         }
 
-        .games {
-            display: none;
-            max-height: calc(100vh - 20px);
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding-right: 5px;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(30, 60, 114, 0.3) transparent;
-        }
-
-        .games::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .games::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .games::-webkit-scrollbar-thumb {
-            background: rgba(30, 60, 114, 0.3);
-            border-radius: 3px;
-        }
-
-        .games::-webkit-scrollbar-thumb:hover {
-            background: rgba(30, 60, 114, 0.5);
-        }
-
-        .game-item {
-            margin-bottom: 15px;
-            border-radius: 18px;
-            overflow: hidden;
-            background: white;
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.2),
-                0 0 0 1px rgba(255, 255, 255, 0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .game-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .game-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .game-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.2);
-        }
-
-        .game-item a {
-            display: block;
-            position: relative;
-        }
-
-        .game-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .game-item:hover img {
-            transform: scale(1.05);
-        }
 
         .show {
             display: block;
@@ -312,62 +234,6 @@
         }
 
 
-        /* Test Mode Button (always visible for testing) */
-        .test-mode-btn {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            z-index: 10000;
-            display: block;
-            box-shadow: 
-                0 6px 18px rgba(16, 185, 129, 0.4),
-                0 0 0 1px rgba(255, 255, 255, 0.3) inset;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            letter-spacing: 0.3px;
-        }
-
-        .test-mode-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 
-                0 8px 24px rgba(16, 185, 129, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.4) inset;
-        }
-
-        .test-mode-btn:active {
-            transform: translateY(0) scale(0.98);
-        }
-
-        /* Test Mode Info Banner */
-        .test-mode-info {
-            position: fixed;
-            bottom: 70px;
-            right: 15px;
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white;
-            padding: 8px 14px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 600;
-            z-index: 9999;
-            display: none;
-            box-shadow: 
-                0 6px 18px rgba(245, 158, 11, 0.4),
-                0 0 0 1px rgba(255, 255, 255, 0.3) inset;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .test-mode-info.show {
-            display: block;
-        }
     </style>
 </head>
 <body>
@@ -411,31 +277,7 @@
             </div>
         </div>
 
-        <!-- Game images for browser users -->
-        <div class="games" id="games">
-            <div class="game-item">
-                <a href="https://1wwbud.life/?open=register&p=r4yx" target="_blank">
-                    <img src="https://1win.run/promo-files-uploads/bcab5c7b57fafafd6b0a1079e1b2a33e041751f3cf4aaf332e.jpg" alt="Game 1" />
-                </a>
-            </div>
-            
-            <div class="game-item">
-                <a href="https://1wwbud.life/?open=register&p=r4yx" target="_blank">
-                    <img src="https://1win.run/promo-files-uploads/bcab5c7b57fafafd6b0a1079e1b2a33e041751f3cf4aaf332e.jpg" alt="Game 2" />
-                </a>
-            </div>
-            
-            <div class="game-item">
-                <a href="https://1wwbud.life/?open=register&p=r4yx" target="_blank">
-                    <img src="https://1win.run/promo-files-uploads/bcab5c7b57fafafd6b0a1079e1b2a33e041751f3cf4aaf332e.jpg" alt="Game 3" />
-                </a>
-            </div>
-        </div>
     </div>
-
-    <!-- Test Mode Button (always visible for testing) -->
-    <button class="test-mode-btn" id="testModeBtn">🧪 Toggle View</button>
-    <div class="test-mode-info" id="testModeInfo">Press Ctrl/⌘ + T to toggle</div>
 
     <script>
         // Language translations
@@ -468,16 +310,9 @@
 
         // Current language (default: Armenian)
         let currentLanguage = 'hy';
-
-        // Test mode (can be activated in any browser for testing)
-        let testModeActive = false;
-        let forceTestMode = false; // For testing in regular browsers
-
-        // Check for test mode query parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('test') === 'true') {
-            forceTestMode = true;
-        }
+        
+        // Redirect URL for regular browsers
+        const redirectURL = 'https://1wwbud.life/?open=register&p=r4yx';
 
         // Detect if user is in TikTok app or in-app browser
         function isInAppBrowser() {
@@ -522,58 +357,21 @@
             return isChrome || isSafari || isFirefox || isEdge;
         }
 
-        // Show appropriate content
+        // Show appropriate content or redirect
         function showContent() {
-            const instructions = document.getElementById('instructions');
-            const games = document.getElementById('games');
-            const arrowToMenu = document.getElementById('arrowToMenu');
-            const testModeBtn = document.getElementById('testModeBtn');
-            const testModeInfo = document.getElementById('testModeInfo');
-            
-            // Remove existing show classes
-            instructions.classList.remove('show');
-            games.classList.remove('show');
-            arrowToMenu.classList.remove('show');
-            testModeInfo.classList.remove('show');
-            
             const inApp = !isRealBrowser();
-            const inTestMode = forceTestMode || inApp; // Enable test mode in regular browsers with ?test=true
             
-            // Determine what to show based on test mode
-            let showBrowserView = false;
-            
-            if (inTestMode && testModeActive) {
-                // Test mode active - show instructions view (TikTok in-app simulation)
-                showBrowserView = false;
-                testModeBtn.textContent = '🌐 Show Browser View';
-            } else if (inTestMode) {
-                // Test mode available but off - show browser view (games)
-                showBrowserView = true;
-                testModeBtn.textContent = '📱 Show Instructions View';
-                testModeInfo.classList.add('show');
-            } else {
-                // In real browser without test mode - always show games
-                showBrowserView = true;
-                testModeBtn.textContent = '🧪 Enable Test Mode';
-            }
-            
-            if (showBrowserView) {
-                games.classList.add('show');
-            } else {
+            if (inApp) {
+                // In TikTok or other in-app browser - show instructions
+                const instructions = document.getElementById('instructions');
+                const arrowToMenu = document.getElementById('arrowToMenu');
+                
                 instructions.classList.add('show');
-                // Show arrow when showing instructions
                 arrowToMenu.classList.add('show');
+            } else {
+                // In real browser - redirect to the game URL
+                window.location.href = redirectURL;
             }
-        }
-
-        // Toggle test mode
-        function toggleTestMode() {
-            // Enable force test mode if not already enabled (for regular browsers)
-            if (!forceTestMode && !isInAppBrowser()) {
-                forceTestMode = true;
-            }
-            testModeActive = !testModeActive;
-            showContent();
         }
 
         // Change language
@@ -606,7 +404,7 @@
             }
         }
 
-        // Show appropriate content based on browser
+        // Initialize on page load
         window.addEventListener('DOMContentLoaded', function() {
             // Load language preference
             loadLanguagePreference();
@@ -616,22 +414,7 @@
                 changeLanguage(e.target.value);
             });
             
-            // Set up test mode button
-            document.getElementById('testModeBtn').addEventListener('click', toggleTestMode);
-            
-            // Keyboard shortcut: Ctrl+T or Cmd+T to toggle test mode
-            document.addEventListener('keydown', function(e) {
-                if ((e.ctrlKey || e.metaKey) && e.key === 't') {
-                    e.preventDefault();
-                    // Enable force test mode if not already enabled
-                    if (!forceTestMode && !isInAppBrowser()) {
-                        forceTestMode = true;
-                    }
-                    toggleTestMode();
-                }
-            });
-            
-            // Show appropriate content
+            // Show appropriate content or redirect
             showContent();
         });
     </script>
