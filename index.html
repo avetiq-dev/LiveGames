@@ -2,76 +2,79 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>TikTok Browser Test</title>
+  <title>Open in Browser</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
     .notice {
       display: none;
-      padding: 15px;
-      background: #ffe8e8;
-      border: 1px solid #ff4b4b;
-      margin-bottom: 20px;
+      padding: 20px;
+      background: #fffbea;
+      border: 1px solid #e2c044;
       border-radius: 5px;
+      margin-bottom: 20px;
     }
     a.button {
       display: inline-block;
-      padding: 10px 15px;
+      padding: 12px 20px;
       background: #007bff;
-      color: white;
+      color: #fff;
       text-decoration: none;
       border-radius: 5px;
-      margin-top: 10px;
       font-size: 16px;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-<h2>TikTok Browser Test Page</h2>
+<h2>Open in External Browser</h2>
 
 <div id="androidNotice" class="notice">
-  <b>TikTok Android detected.</b><br>
-  Tap a button below to open in Chrome:<br><br>
-  <a class="button" href="intent://1wwbud.life/?open=register&p=r4yx#Intent;scheme=https;package=com.android.chrome;end">
-    Open in Chrome
-  </a>
+  <strong>You're using TikTok on Android.</strong><br>
+  Tap the button below to open the link in Chrome (or your default browser):<br><br>
+  <a id="btnChrome" class="button">Open in Chrome</a>
   <br><br>
-  <a class="button" href="https://1wwbud.life/?open=register&p=r4yx" target="_blank">
-    Open in default browser
-  </a>
+  <a id="btnDefault" class="button">Open in Browser</a>
 </div>
 
 <div id="iosNotice" class="notice">
-  <b>TikTok iOS detected.</b><br>
-  TikTok on iPhone blocks automatic opening of external browsers.<br>
-  Please use the Share button (⬆) in the top right → "Open in Safari".
+  <strong>You're using TikTok on iPhone / iPad.</strong><br>
+  TikTok’s in-app browser may block direct opening in Safari or other browsers.<br><br>
+  Please tap the “Share” button <br>
+  ▸ then tap “Open in Browser” (Safari).
 </div>
 
 <div id="otherNotice" class="notice">
-  <b>Other browser detected.</b><br>
-  <a class="button" href="https://1wwbud.life/?open=register&p=r4yx" target="_blank">
-    Open Link
-  </a>
+  <strong>Open in your browser:</strong><br>
+  <a id="btnOther" class="button">Go to Link</a>
 </div>
 
 <script>
+  const DEST_URL = "https://1wwbud.life/?open=register&p=r4yx";
   const ua = navigator.userAgent.toLowerCase();
-
-  // Detect TikTok
   const isTikTok = ua.includes("tiktok") || ua.includes("musically") || ua.includes("okhttp");
-
-  // Detect iOS
   const isIOS = /iphone|ipad|ipod/.test(ua);
-
-  // Detect Android
   const isAndroid = /android/.test(ua);
 
+  const androidNotice = document.getElementById("androidNotice");
+  const iosNotice = document.getElementById("iosNotice");
+  const otherNotice = document.getElementById("otherNotice");
+
+  const btnChrome = document.getElementById("btnChrome");
+  const btnDefault = document.getElementById("btnDefault");
+  const btnOther = document.getElementById("btnOther");
+
+  // Set link hrefs
+  btnChrome.href = "intent://" + DEST_URL.replace(/^https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
+  btnDefault.href = DEST_URL;
+  btnOther.href = DEST_URL;
+
   if (isTikTok && isAndroid) {
-    document.getElementById("androidNotice").style.display = "block";
+    androidNotice.style.display = "block";
   } else if (isTikTok && isIOS) {
-    document.getElementById("iosNotice").style.display = "block";
+    iosNotice.style.display = "block";
   } else {
-    document.getElementById("otherNotice").style.display = "block";
+    otherNotice.style.display = "block";
   }
 </script>
 
