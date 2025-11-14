@@ -148,31 +148,105 @@
             color: #333;
             font-size: 14px;
         }
+
+        /* Arrow pointing to menu */
+        .arrow-to-menu {
+            position: fixed;
+            top: 15px;
+            right: 50px;
+            z-index: 9999;
+            display: none;
+        }
+
+        .arrow-to-menu.show {
+            display: block;
+        }
+
+        .arrow-to-menu svg {
+            width: 60px;
+            height: 60px;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+            animation: pointToMenu 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pointToMenu {
+            0%, 100% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            50% {
+                transform: translate(8px, -8px);
+                opacity: 0.7;
+            }
+        }
+
+        .arrow-text {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            display: none;
+            text-align: center;
+        }
+
+        .arrow-text.show {
+            display: block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Arrow pointing to menu button -->
+    <div class="arrow-to-menu" id="arrowToMenu">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#FF0050" />
+                </marker>
+            </defs>
+            <line x1="10" y1="90" x2="85" y2="15" stroke="#FF0050" stroke-width="4" marker-end="url(#arrowhead)" />
+        </svg>
+    </div>
+    <div class="arrow-text" id="arrowText">👆 Սեղմեք այստեղ</div>
+
     <!-- Language Selector -->
     <div class="language-selector">
         <label for="languageSelect">🌐</label>
         <select id="languageSelect">
+            <option value="hy">Հայերեն</option>
             <option value="ru">Русский</option>
             <option value="en">English</option>
-            <option value="hy">Հայերեն</option>
         </select>
     </div>
 
     <div class="container">
         <!-- Instructions for TikTok app users -->
         <div class="instructions" id="instructions">
-            <h1 id="instructionTitle">📱 Open in Browser</h1>
-            <p><strong id="instructionText1">You're viewing this in the TikTok app.</strong></p>
-            <p id="instructionText2">To access the games, please open this link in your browser:</p>
+            <h1 id="instructionTitle">📱 Բացել բրաուզերում</h1>
+            <p><strong id="instructionText1">Դուք դա դիտում եք TikTok հավելվածում։</strong></p>
+            <p id="instructionText2">Խաղերին մուտք գործելու համար, խնդրում ենք բացել այս հղումը ձեր բրաուզերում:</p>
             
             <div class="steps">
-                <p><strong id="instructionStepsTitle">How to open in browser:</strong></p>
+                <p><strong id="instructionStepsTitle">Ինչպես բացել բրաուզերում:</strong></p>
                 <ol>
-                    <li id="instructionStep1">Tap the <strong>"..."</strong> menu (top right corner)</li>
-                    <li id="instructionStep2">Select <strong>"Open in Browser"</strong> or <strong>"Open in Safari/Chrome"</strong></li>
+                    <li id="instructionStep1">Սեղմեք <strong>"..."</strong> մենյուն (վերևի աջ անկյունում)</li>
+                    <li id="instructionStep2">Ընտրեք <strong>"Բացել բրաուզերում"</strong> կամ <strong>"Բացել Safari/Chrome-ում"</strong></li>
                 </ol>
             </div>
 
@@ -219,7 +293,8 @@
                 instructionText2: 'Чтобы получить доступ к играм, откройте эту ссылку в вашем браузере:',
                 instructionStepsTitle: 'Как открыть в браузере:',
                 instructionStep1: 'Нажмите на меню <strong>"..."</strong> (в правом верхнем углу)',
-                instructionStep2: 'Выберите <strong>"Открыть в браузере"</strong> или <strong>"Открыть в Safari/Chrome"</strong>'
+                instructionStep2: 'Выберите <strong>"Открыть в браузере"</strong> или <strong>"Открыть в Safari/Chrome"</strong>',
+                arrowText: '👆 Нажмите здесь'
             },
             en: {
                 instructionTitle: '📱 Open in Browser',
@@ -227,7 +302,8 @@
                 instructionText2: 'To access the games, please open this link in your browser:',
                 instructionStepsTitle: 'How to open in browser:',
                 instructionStep1: 'Tap the <strong>"..."</strong> menu (top right corner)',
-                instructionStep2: 'Select <strong>"Open in Browser"</strong> or <strong>"Open in Safari/Chrome"</strong>'
+                instructionStep2: 'Select <strong>"Open in Browser"</strong> or <strong>"Open in Safari/Chrome"</strong>',
+                arrowText: '👆 Tap here'
             },
             hy: {
                 instructionTitle: '📱 Բացել բրաուզերում',
@@ -235,12 +311,13 @@
                 instructionText2: 'Խաղերին մուտք գործելու համար, խնդրում ենք բացել այս հղումը ձեր բրաուզերում:',
                 instructionStepsTitle: 'Ինչպես բացել բրաուզերում:',
                 instructionStep1: 'Սեղմեք <strong>"..."</strong> մենյուն (վերևի աջ անկյունում)',
-                instructionStep2: 'Ընտրեք <strong>"Բացել բրաուզերում"</strong> կամ <strong>"Բացել Safari/Chrome-ում"</strong>'
+                instructionStep2: 'Ընտրեք <strong>"Բացել բրաուզերում"</strong> կամ <strong>"Բացել Safari/Chrome-ում"</strong>',
+                arrowText: '👆 Սեղմեք այստեղ'
             }
         };
 
-        // Current language (default: Russian)
-        let currentLanguage = 'ru';
+        // Current language (default: Armenian)
+        let currentLanguage = 'hy';
 
         // Detect if user is in TikTok app or in-app browser
         function isInAppBrowser() {
@@ -289,16 +366,23 @@
         function showContent() {
             const instructions = document.getElementById('instructions');
             const games = document.getElementById('games');
+            const arrowToMenu = document.getElementById('arrowToMenu');
+            const arrowText = document.getElementById('arrowText');
             
             // Remove existing show classes
             instructions.classList.remove('show');
             games.classList.remove('show');
+            arrowToMenu.classList.remove('show');
+            arrowText.classList.remove('show');
             
             // Use actual browser detection
             if (isRealBrowser()) {
                 games.classList.add('show');
             } else {
                 instructions.classList.add('show');
+                // Show arrow only when in TikTok app
+                arrowToMenu.classList.add('show');
+                arrowText.classList.add('show');
             }
         }
 
@@ -314,6 +398,7 @@
             document.getElementById('instructionStepsTitle').textContent = texts.instructionStepsTitle;
             document.getElementById('instructionStep1').innerHTML = texts.instructionStep1;
             document.getElementById('instructionStep2').innerHTML = texts.instructionStep2;
+            document.getElementById('arrowText').textContent = texts.arrowText;
             
             // Save language preference
             localStorage.setItem('preferredLanguage', lang);
@@ -327,8 +412,8 @@
                 document.getElementById('languageSelect').value = savedLang;
                 changeLanguage(savedLang);
             } else {
-                // Default to Russian
-                changeLanguage('ru');
+                // Default to Armenian
+                changeLanguage('hy');
             }
         }
 
