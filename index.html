@@ -286,73 +286,31 @@
         /* Arrow pointing to menu */
         .arrow-to-menu {
             position: fixed;
-            top: 8px;
-            right: 8px;
+            top: 5px;
+            right: 5px;
             z-index: 9999;
             display: none;
+            font-size: 45px;
+            animation: pointToTopRight 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+            cursor: pointer;
         }
 
         .arrow-to-menu.show {
             display: block;
         }
 
-        .arrow-to-menu svg {
-            width: 70px;
-            height: 70px;
-            filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.4));
-            animation: pointToMenu 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pointToMenu {
+        @keyframes pointToTopRight {
             0%, 100% {
-                transform: translate(0, 0);
+                transform: translate(0, 0) scale(1);
                 opacity: 1;
             }
             50% {
-                transform: translate(3px, -3px);
+                transform: translate(8px, -8px) scale(1.1);
                 opacity: 0.8;
             }
         }
 
-        .arrow-text {
-            position: fixed;
-            top: 85px;
-            right: 10px;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 8px 14px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 700;
-            box-shadow: 
-                0 6px 18px rgba(30, 60, 114, 0.4),
-                0 0 0 1px rgba(255, 255, 255, 0.3) inset;
-            z-index: 9999;
-            display: none;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            letter-spacing: 0.3px;
-        }
-
-        .arrow-text.show {
-            display: block;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 
-                    0 6px 18px rgba(30, 60, 114, 0.4),
-                    0 0 0 1px rgba(255, 255, 255, 0.3) inset;
-            }
-            50% {
-                transform: scale(1.06);
-                box-shadow: 
-                    0 8px 24px rgba(30, 60, 114, 0.5),
-                    0 0 0 1px rgba(255, 255, 255, 0.4) inset;
-            }
-        }
 
         /* Test Mode Button (always visible for testing) */
         .test-mode-btn {
@@ -413,26 +371,8 @@
     </style>
 </head>
 <body>
-    <!-- Arrow pointing to menu button with three dots visualization -->
-    <div class="arrow-to-menu" id="arrowToMenu">
-        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                    <polygon points="0 0, 10 3, 0 6" fill="#1e3c72" />
-                </marker>
-            </defs>
-            <!-- Three dots menu button -->
-            <g transform="translate(85, 10)">
-                <rect x="0" y="0" width="28" height="28" rx="6" fill="#1e3c72" opacity="0.9"/>
-                <circle cx="14" cy="8" r="2.5" fill="white"/>
-                <circle cx="14" cy="14" r="2.5" fill="white"/>
-                <circle cx="14" cy="20" r="2.5" fill="white"/>
-            </g>
-            <!-- Curved arrow pointing to the menu -->
-            <path d="M 20 100 Q 40 60, 85 35" stroke="#1e3c72" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
-        </svg>
-    </div>
-    <div class="arrow-text" id="arrowText">👆 Սեղմեք այստեղ</div>
+    <!-- Arrow pointing to top right corner -->
+    <div class="arrow-to-menu" id="arrowToMenu">☝️</div>
 
     <!-- Language Selector -->
     <div class="language-selector">
@@ -506,8 +446,7 @@
                 instructionText2: 'Чтобы получить доступ к играм, откройте эту ссылку в вашем браузере:',
                 instructionStepsTitle: 'Как открыть в браузере:',
                 instructionStep1: 'Нажмите на меню <strong>"..."</strong> (в правом верхнем углу)',
-                instructionStep2: 'Выберите <strong>"Открыть в браузере"</strong> или <strong>"Открыть в Safari/Chrome"</strong>',
-                arrowText: '👆 Нажмите здесь'
+                instructionStep2: 'Выберите <strong>"Открыть в браузере"</strong> или <strong>"Открыть в Safari/Chrome"</strong>'
             },
             en: {
                 instructionTitle: '📱 Open in Browser',
@@ -515,8 +454,7 @@
                 instructionText2: 'To access the games, please open this link in your browser:',
                 instructionStepsTitle: 'How to open in browser:',
                 instructionStep1: 'Tap the <strong>"..."</strong> menu (top right corner)',
-                instructionStep2: 'Select <strong>"Open in Browser"</strong> or <strong>"Open in Safari/Chrome"</strong>',
-                arrowText: '👆 Tap here'
+                instructionStep2: 'Select <strong>"Open in Browser"</strong> or <strong>"Open in Safari/Chrome"</strong>'
             },
             hy: {
                 instructionTitle: '📱 Բացել բրաուզերում',
@@ -524,8 +462,7 @@
                 instructionText2: 'Խաղերին մուտք գործելու համար, խնդրում ենք բացել այս հղումը ձեր բրաուզերում:',
                 instructionStepsTitle: 'Ինչպես բացել բրաուզերում:',
                 instructionStep1: 'Սեղմեք <strong>"..."</strong> մենյուն (վերևի աջ անկյունում)',
-                instructionStep2: 'Ընտրեք <strong>"Բացել բրաուզերում"</strong> կամ <strong>"Բացել Safari/Chrome-ում"</strong>',
-                arrowText: '👆 Սեղմեք այստեղ'
+                instructionStep2: 'Ընտրեք <strong>"Բացել բրաուզերում"</strong> կամ <strong>"Բացել Safari/Chrome-ում"</strong>'
             }
         };
 
@@ -590,7 +527,6 @@
             const instructions = document.getElementById('instructions');
             const games = document.getElementById('games');
             const arrowToMenu = document.getElementById('arrowToMenu');
-            const arrowText = document.getElementById('arrowText');
             const testModeBtn = document.getElementById('testModeBtn');
             const testModeInfo = document.getElementById('testModeInfo');
             
@@ -598,7 +534,6 @@
             instructions.classList.remove('show');
             games.classList.remove('show');
             arrowToMenu.classList.remove('show');
-            arrowText.classList.remove('show');
             testModeInfo.classList.remove('show');
             
             const inApp = !isRealBrowser();
@@ -626,11 +561,8 @@
                 games.classList.add('show');
             } else {
                 instructions.classList.add('show');
-                // Show arrow only when showing instructions (not in test mode)
-                if (!testModeActive) {
-                    arrowToMenu.classList.add('show');
-                    arrowText.classList.add('show');
-                }
+                // Show arrow when showing instructions
+                arrowToMenu.classList.add('show');
             }
         }
 
@@ -656,7 +588,6 @@
             document.getElementById('instructionStepsTitle').textContent = texts.instructionStepsTitle;
             document.getElementById('instructionStep1').innerHTML = texts.instructionStep1;
             document.getElementById('instructionStep2').innerHTML = texts.instructionStep2;
-            document.getElementById('arrowText').textContent = texts.arrowText;
             
             // Save language preference
             localStorage.setItem('preferredLanguage', lang);
