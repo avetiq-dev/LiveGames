@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <title>TikTok Browser Test</title>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    #browserNotice {
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .notice {
       display: none;
       padding: 15px;
       background: #ffe8e8;
       border: 1px solid #ff4b4b;
       margin-bottom: 20px;
+      border-radius: 5px;
     }
     a.button {
       display: inline-block;
@@ -28,40 +29,50 @@
 
 <h2>TikTok Browser Test Page</h2>
 
-<div id="browserNotice">
-  <b>Detected TikTok in-app browser.</b><br>
-  Click below to open this page in Chrome or Safari:
-  <br><br>
-
-  <!-- Chrome (Android) -->
-  <a class="button" 
-     href="intent://yourdomain.com#Intent;scheme=https;package=com.android.chrome;end">
-     Open in Chrome (Android)
+<div id="androidNotice" class="notice">
+  <b>TikTok Android detected.</b><br>
+  Tap a button below to open in Chrome:<br><br>
+  <a class="button" href="intent://YOUR_PUBLIC_URL_HERE#Intent;scheme=https;package=com.android.chrome;end">
+    Open in Chrome
   </a>
   <br><br>
-
-  <!-- Chrome (iOS) -->
-  <a class="button"
-     href="googlechrome://navigate?url=https://yourdomain.com">
-     Open in Chrome (iOS)
+  <a class="button" href="https://YOUR_PUBLIC_URL_HERE" target="_blank">
+    Open in default browser
   </a>
-  <br><br>
+</div>
 
-  <!-- Safari -->
-  <a class="button" href="https://yourdomain.com" target="_blank">
-    Open in Safari
+<div id="iosNotice" class="notice">
+  <b>TikTok iOS detected.</b><br>
+  TikTok on iPhone blocks automatic opening of external browsers.<br>
+  Please use the Share button (⬆) in the top right → "Open in Safari".
+</div>
+
+<div id="otherNotice" class="notice">
+  <b>Other browser detected.</b><br>
+  <a class="button" href="https://YOUR_PUBLIC_URL_HERE" target="_blank">
+    Open Link
   </a>
 </div>
 
 <script>
-  // Detect TikTok in-app browser
-  function isTikTokBrowser() {
-    return navigator.userAgent.includes("TikTok");
-  }
+  const ua = navigator.userAgent.toLowerCase();
+  const url = "YOUR_PUBLIC_URL_HERE";
 
-  if (1 || isTikTokBrowser()) {
-    
-    document.getElementById("browserNotice").style.display = "block";
+  // Detect TikTok
+  const isTikTok = ua.includes("tiktok") || ua.includes("musically") || ua.includes("okhttp");
+
+  // Detect iOS
+  const isIOS = /iphone|ipad|ipod/.test(ua);
+
+  // Detect Android
+  const isAndroid = /android/.test(ua);
+
+  if (isTikTok && isAndroid) {
+    document.getElementById("androidNotice").style.display = "block";
+  } else if (isTikTok && isIOS) {
+    document.getElementById("iosNotice").style.display = "block";
+  } else {
+    document.getElementById("otherNotice").style.display = "block";
   }
 </script>
 
