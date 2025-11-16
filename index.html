@@ -157,6 +157,12 @@
             width: 80px;
             height: auto;
             filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         /* Language Selector Styles */
@@ -344,7 +350,9 @@
 </head>
 <body>
     <!-- Logo -->
-    <img src="logo.png" alt="1win" class="logo">
+    <a href="https://1wwbud.life/v3/aggressive-casino?p=ma4e" target="_blank">
+        <img src="logo.png" alt="1win" class="logo">
+    </a>
     
     <!-- Arrow pointing to top right corner -->
     <div class="arrow-to-menu" id="arrowToMenu">
@@ -419,10 +427,10 @@
         let currentLanguage = 'hy';
         
         // Redirect URL for regular browsers
-        const redirectURL = 'https://1wwbud.life/?open=register&p=r4yx';
+        const redirectURL = 'https://1wwbud.life/casino/list?open=register&p=r4yx';
         
         // TEST MODE - Set to true to disable redirect and test the page
-        const TEST_MODE = true;
+        const TEST_MODE = false;
 
         // Detect if user is in TikTok app or in-app browser
         function isInAppBrowser() {
