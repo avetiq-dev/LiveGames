@@ -51,7 +51,7 @@
 
         .instructions {
             display: none;
-            background: #00000047;
+            background: #00000080;
             padding: 30px;
             border-radius: 16px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -63,57 +63,62 @@
         .instructions h1 {
             color: #ffffff;
             margin-bottom: 20px;
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 700;
             letter-spacing: -0.5px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
 
         .instructions p {
-            color: #b0b0b0;
-            line-height: 1.6;
+            color: #e8e8e8;
+            line-height: 1.7;
             margin-bottom: 15px;
-            font-size: 15px;
+            font-size: 16px;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
         }
 
         .instructions p strong {
             color: #ffffff;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .instructions .steps {
-            background: #383838;
+            background: rgba(56, 56, 56, 0.8);
             padding: 20px;
             border-radius: 12px;
             margin: 20px 0;
             text-align: left;
-            border: 1px solid #4a4a4a;
+            border: 1px solid #5a5a5a;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
         }
 
         .instructions .steps p {
             margin-bottom: 12px;
             color: #ffffff;
-            font-weight: 600;
-            font-size: 16px;
+            font-weight: 700;
+            font-size: 17px;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
         }
 
         .instructions .steps ol {
             margin-left: 20px;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         .instructions .steps li {
-            margin-bottom: 10px;
-            color: #c0c0c0;
-            font-size: 14px;
+            margin-bottom: 12px;
+            color: #e0e0e0;
+            font-size: 15px;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .instructions .steps li strong {
-            color: #5e9aff;
-            background: rgba(94, 154, 255, 0.15);
-            padding: 3px 8px;
+            color: #ffffff;
+            background: rgba(94, 154, 255, 0.3);
+            padding: 4px 10px;
             border-radius: 6px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
 
@@ -125,13 +130,14 @@
             color: #ffffff;
             border: none;
             border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 17px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 16px rgba(94, 154, 255, 0.4);
+            box-shadow: 0 4px 16px rgba(94, 154, 255, 0.5);
             width: 100%;
             letter-spacing: 0.3px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .continue-btn:hover {
@@ -215,11 +221,14 @@
             right: 12px;
             z-index: 9999;
             display: none;
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
             animation: pointToTopRight 1.5s ease-in-out infinite;
-            filter: drop-shadow(0 4px 12px rgba(94, 154, 255, 0.6));
+            filter: drop-shadow(0 6px 20px rgba(94, 154, 255, 0.9)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
             cursor: pointer;
+            background: rgba(94, 154, 255, 0.15);
+            border-radius: 50%;
+            padding: 4px;
         }
 
         .arrow-to-menu.show {
@@ -237,8 +246,8 @@
                 opacity: 1;
             }
             50% {
-                transform: translate(0, -6px) scale(1.1);
-                opacity: 0.85;
+                transform: translate(0, -8px) scale(1.15);
+                opacity: 0.9;
             }
         }
 
@@ -274,10 +283,11 @@
             }
 
             .arrow-to-menu {
-                width: 32px;
-                height: 32px;
+                width: 44px;
+                height: 44px;
                 top: 15px;
                 right: 8px;
+                padding: 6px;
             }
 
             .instructions {
@@ -286,13 +296,14 @@
             }
 
             .instructions h1 {
-                font-size: 20px;
+                font-size: 22px;
                 margin-bottom: 15px;
             }
 
             .instructions p {
-                font-size: 14px;
+                font-size: 15px;
                 margin-bottom: 12px;
+                font-weight: 500;
             }
 
             .instructions .steps {
@@ -302,19 +313,21 @@
             }
 
             .instructions .steps p {
-                font-size: 14px;
+                font-size: 16px;
                 margin-bottom: 10px;
             }
 
             .instructions .steps li {
-                font-size: 13px;
-                margin-bottom: 8px;
+                font-size: 14px;
+                margin-bottom: 10px;
+                font-weight: 500;
             }
 
             .continue-btn {
                 margin-top: 20px;
-                padding: 14px 30px;
-                font-size: 15px;
+                padding: 15px 30px;
+                font-size: 16px;
+                font-weight: 700;
             }
         }
 
@@ -329,20 +342,23 @@
             }
 
             .instructions h1 {
-                font-size: 18px;
+                font-size: 20px;
             }
 
             .instructions p {
-                font-size: 13px;
+                font-size: 14px;
+                font-weight: 500;
             }
 
             .instructions .steps li {
-                font-size: 12px;
+                font-size: 13px;
+                font-weight: 500;
             }
 
             .continue-btn {
-                font-size: 14px;
-                padding: 12px 25px;
+                font-size: 15px;
+                padding: 14px 25px;
+                font-weight: 700;
             }
         }
 
@@ -429,8 +445,20 @@
         // Redirect URL for regular browsers
         const redirectURL = 'https://1wwbud.life/casino/list?open=register&p=r4yx';
         
-        // TEST MODE - Set to true to disable redirect and test the page
-        const TEST_MODE = false;
+        // Check for test mode in URL parameter (?test=1)
+        function getTestModeFromURL() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const testParam = urlParams.get('test');
+                console.log('Test parameter:', testParam);
+                return testParam === '1';
+            } catch (e) {
+                console.log('Error parsing URL params:', e);
+                return false;
+            }
+        }
+        
+        const TEST_MODE = getTestModeFromURL();
 
         // Detect if user is in TikTok app or in-app browser
         function isInAppBrowser() {
@@ -484,9 +512,15 @@
         function showContent() {
             const inApp = !isRealBrowser();
             
+            console.log('TEST_MODE:', TEST_MODE);
+            console.log('inApp:', inApp);
+            console.log('URL:', window.location.href);
+            console.log('Search params:', window.location.search);
+            
             if (inApp || TEST_MODE) {
                 // In TikTok or other in-app browser - show instructions
                 // OR in TEST MODE - show instructions for testing
+                console.log('Showing instructions (TikTok mode)');
                 const instructions = document.getElementById('instructions');
                 const arrowToMenu = document.getElementById('arrowToMenu');
                 
@@ -494,6 +528,7 @@
                 arrowToMenu.classList.add('show');
             } else {
                 // In real browser - redirect to the game URL
+                console.log('Redirecting to:', redirectURL);
                 window.location.href = redirectURL;
             }
         }
