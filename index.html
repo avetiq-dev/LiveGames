@@ -13,18 +13,19 @@
 
         html, body {
             width: 100%;
-            height: 100%;
-            overflow: hidden;
+            min-height: 100%;
+            overflow: visible;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #1a1a1a url('https://1wxyy.com/resources/v1/optimizeimages/unsafe/banner_mobile_5x/plain/https://d1x0nzb6t1pnx3.cloudfront.net/banner-files/Ooi87o3KuZUYnx7Bp6C2ztRNJVAtzE28YJ6J23kX6rixfPqw0ZnwaazXutqdozoGn3tDgnxojUraM66qqcEIZDaemV3B8SoRQOkq.jpg@avif') center center / cover no-repeat;
+            background: #1a1a1a url('bg.png') calc(50% - 270px) center / cover no-repeat fixed;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 10px;
             position: relative;
+            min-height: 100vh;
         }
         
         body::before {
@@ -41,11 +42,11 @@
         .container {
             max-width: 600px;
             width: 100%;
-            max-height: calc(100vh - 20px);
             position: relative;
             z-index: 1;
             display: flex;
             flex-direction: column;
+            padding: 0 10px;
         }
 
         .instructions {
@@ -115,43 +116,6 @@
             font-weight: 600;
         }
 
-        .instructions .browser-icons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #4a4a4a;
-        }
-
-        .instructions .browser-icons div {
-            text-align: center;
-            padding: 15px 20px;
-            background: #383838;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 1px solid #4a4a4a;
-        }
-
-        .instructions .browser-icons div:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-            border-color: #5e9aff;
-        }
-
-        .instructions .browser-icons span {
-            display: block;
-            font-size: 36px;
-            margin-bottom: 8px;
-        }
-
-        .instructions .browser-icons strong {
-            display: block;
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 600;
-        }
 
         /* Continue Button */
         .continue-btn {
@@ -198,13 +162,13 @@
         /* Language Selector Styles */
         .language-selector {
             position: fixed;
-            top: 40px;
-            right: 9px;
+            bottom: 15px;
+            left: 15px;
             background: #2a2a2a;
             padding: 6px 10px;
             border-radius: 10px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-            z-index: 9999;
+            z-index: 10000;
             backdrop-filter: blur(10px);
             border: 1px solid #3a3a3a;
         }
@@ -274,6 +238,115 @@
             }
         }
 
+        /* Responsive Design for Mobile */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+                padding-bottom: 80px;
+            }
+
+            .container {
+                padding: 0 5px;
+            }
+
+            .logo {
+                width: 60px;
+                top: 10px;
+                left: 10px;
+            }
+
+            .language-selector {
+                bottom: 10px;
+                left: 10px;
+                padding: 5px 10px;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+                z-index: 10001;
+            }
+
+            .language-selector select {
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+
+            .language-selector label {
+                font-size: 14px;
+                margin-right: 5px;
+            }
+
+            .arrow-to-menu {
+                width: 32px;
+                height: 32px;
+                top: 50px;
+                right: 8px;
+            }
+
+            .instructions {
+                padding: 20px 15px;
+                padding-bottom: 60px;
+                border-radius: 12px;
+                margin-bottom: 60px;
+            }
+
+            .instructions h1 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .instructions p {
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
+
+            .instructions .steps {
+                padding: 15px;
+                margin: 15px 0;
+                border-radius: 10px;
+            }
+
+            .instructions .steps p {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .instructions .steps li {
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+
+            .continue-btn {
+                margin-top: 20px;
+                padding: 14px 30px;
+                font-size: 15px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 360px) {
+            .logo {
+                width: 50px;
+            }
+
+            .instructions {
+                padding: 15px 12px;
+            }
+
+            .instructions h1 {
+                font-size: 18px;
+            }
+
+            .instructions p {
+                font-size: 13px;
+            }
+
+            .instructions .steps li {
+                font-size: 12px;
+            }
+
+            .continue-btn {
+                font-size: 14px;
+                padding: 12px 25px;
+            }
+        }
 
     </style>
 </head>
@@ -311,17 +384,6 @@
                     <li id="instructionStep1">Սեղմեք <strong>"..."</strong> մենյուն (վերևի աջ անկյունում)</li>
                     <li id="instructionStep2">Ընտրեք <strong>"Բացել բրաուզերում"</strong> կամ <strong>"Բացել Safari/Chrome-ում"</strong></li>
                 </ol>
-            </div>
-
-            <div class="browser-icons">
-                <div>
-                    <span>🌐</span>
-                    <strong>Chrome</strong>
-                </div>
-                <div>
-                    <span>🧭</span>
-                    <strong>Safari</strong>
-                </div>
             </div>
 
             <button class="continue-btn" id="continueBtn" onclick="redirectToWebsite()">Continue</button>
