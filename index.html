@@ -2,582 +2,87 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Games</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Text Page</title>
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #1a1a1a url('bg.png') calc(50% - 270px) center / cover no-repeat fixed;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 10px;
-            position: relative;
-            height: 100vh;
-        }
-        
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
-            pointer-events: none;
+            justify-content: center;
         }
 
         .container {
-            max-width: 600px;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 0 10px;
+            max-width: 700px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
 
-        .instructions {
-            display: none;
-            background: #00000080;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-        }
-
-        .instructions h1 {
-            color: #ffffff;
-            margin-bottom: 20px;
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        .instructions p {
-            color: #e8e8e8;
-            line-height: 1.7;
+        h1 {
             margin-bottom: 15px;
-            font-size: 16px;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+            color: #333;
         }
 
-        .instructions p strong {
-            color: #ffffff;
-            font-weight: 700;
-        }
-
-        .instructions .steps {
-            background: rgba(56, 56, 56, 0.8);
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            text-align: left;
-            border: 1px solid #5a5a5a;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-        }
-
-        .instructions .steps p {
-            margin-bottom: 12px;
-            color: #ffffff;
-            font-weight: 700;
-            font-size: 17px;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-        }
-
-        .instructions .steps ol {
-            margin-left: 20px;
-            line-height: 1.8;
-        }
-
-        .instructions .steps li {
-            margin-bottom: 12px;
-            color: #e0e0e0;
-            font-size: 15px;
-            font-weight: 500;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .instructions .steps li strong {
-            color: #ffffff;
-            background: rgba(94, 154, 255, 0.3);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-weight: 700;
-        }
-
-
-        /* Continue Button */
-        .continue-btn {
+        h2 {
             margin-top: 25px;
-            padding: 16px 40px;
-            background: linear-gradient(135deg, #5e9aff 0%, #4a7fd9 100%);
-            color: #ffffff;
-            border: none;
-            border-radius: 12px;
-            font-size: 17px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 16px rgba(94, 154, 255, 0.5);
-            width: 100%;
-            letter-spacing: 0.3px;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+            color: #555;
         }
 
-        .continue-btn:hover {
-            background: linear-gradient(135deg, #6fa8ff 0%, #5b8fe5 100%);
-            box-shadow: 0 6px 20px rgba(94, 154, 255, 0.6);
-            transform: translateY(-2px);
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
         }
 
-        .continue-btn:active {
-            transform: translateY(0);
+        ul {
+            margin-top: 10px;
+            padding-left: 20px;
+            color: #555;
         }
 
-        .show {
-            display: block;
+        li {
+            margin-bottom: 6px;
         }
-
-        /* Logo Styles */
-        .logo {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 9999;
-            width: 80px;
-            height: auto;
-            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        /* Language Selector Styles */
-        .language-selector {
-            margin-top: 20px;
-            padding: 8px 12px;
-            border-radius: 10px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-            border: 1px solid #3a3a3a;
-            display: flex;
-            justify-content: end;
-            align-items: center;
-        }
-
-        .language-selector select {
-            padding: 5px 8px;
-            border: 1px solid #4a4a4a;
-            border-radius: 6px;
-            background: #383838;
-            color: #ffffff;
-            font-size: 12px;
-            cursor: pointer;
-            outline: none;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .language-selector select:hover {
-            border-color: #5e9aff;
-            background: #404040;
-        }
-
-        .language-selector select:focus {
-            border-color: #5e9aff;
-            box-shadow: 0 0 0 3px rgba(94, 154, 255, 0.2);
-        }
-
-        .language-selector label {
-            margin-right: 6px;
-            font-weight: bold;
-            color: #ffffff;
-            font-size: 14px;
-        }
-
-        /* Arrow pointing to menu */
-        .arrow-to-menu {
-            position: fixed;
-            top: 12px;
-            right: 12px;
-            z-index: 9999;
-            display: none;
-            width: 48px;
-            height: 48px;
-            animation: pointToTopRight 1.5s ease-in-out infinite;
-            filter: drop-shadow(0 6px 20px rgba(94, 154, 255, 0.9)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-            cursor: pointer;
-            background: rgba(94, 154, 255, 0.15);
-            border-radius: 50%;
-            padding: 4px;
-        }
-
-        .arrow-to-menu.show {
-            display: block;
-        }
-
-        .arrow-to-menu svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        @keyframes pointToTopRight {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: translate(0, -8px) scale(1.15);
-                opacity: 0.9;
-            }
-        }
-
-        /* Responsive Design for Mobile */
-        @media (max-width: 480px) {
-            body {
-                padding: 5px;
-            }
-
-            .container {
-                padding: 0 5px;
-            }
-
-            .logo {
-                width: 80px;
-                top: 10px;
-                left: 20px;
-            }
-
-            .language-selector {
-                margin-top: 15px;
-                padding: 6px 10px;
-            }
-
-            .language-selector select {
-                padding: 5px 8px;
-                font-size: 12px;
-            }
-
-            .language-selector label {
-                font-size: 13px;
-                margin-right: 5px;
-            }
-
-            .arrow-to-menu {
-                width: 44px;
-                height: 44px;
-                top: 15px;
-                right: 8px;
-                padding: 6px;
-            }
-
-            .instructions {
-                padding: 20px 15px;
-                border-radius: 12px;
-            }
-
-            .instructions h1 {
-                font-size: 22px;
-                margin-bottom: 15px;
-            }
-
-            .instructions p {
-                font-size: 15px;
-                margin-bottom: 12px;
-                font-weight: 500;
-            }
-
-            .instructions .steps {
-                padding: 15px;
-                margin: 15px 0;
-                border-radius: 10px;
-            }
-
-            .instructions .steps p {
-                font-size: 16px;
-                margin-bottom: 10px;
-            }
-
-            .instructions .steps li {
-                font-size: 14px;
-                margin-bottom: 10px;
-                font-weight: 500;
-            }
-
-            .continue-btn {
-                margin-top: 20px;
-                padding: 15px 30px;
-                font-size: 16px;
-                font-weight: 700;
-            }
-        }
-
-        /* Extra small devices */
-        @media (max-width: 360px) {
-            .logo {
-                width: 50px;
-            }
-
-            .instructions {
-                padding: 15px 12px;
-            }
-
-            .instructions h1 {
-                font-size: 20px;
-            }
-
-            .instructions p {
-                font-size: 14px;
-                font-weight: 500;
-            }
-
-            .instructions .steps li {
-                font-size: 13px;
-                font-weight: 500;
-            }
-
-            .continue-btn {
-                font-size: 15px;
-                padding: 14px 25px;
-                font-weight: 700;
-            }
-        }
-
     </style>
 </head>
 <body>
-    <!-- Logo -->
-    <a href="https://1wwbud.life/v3/aggressive-casino?p=ma4e" target="_blank">
-        <img src="logo.png" alt="1win" class="logo">
-    </a>
-    
-    <!-- Arrow pointing to top right corner -->
-    <div class="arrow-to-menu" id="arrowToMenu">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12.71,6.29a1,1,0,0,0-.33-.21,1,1,0,0,0-.76,0,1,1,0,0,0-.33.21l-4,4a1,1,0,1,0,1.42,1.42L11,9.41V21a1,1,0,0,0,2,0V9.41l2.29,2.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42ZM19,2H5A1,1,0,0,0,5,4H19a1,1,0,0,0,0-2Z" fill="#5e9aff"/>
-        </svg>
-    </div>
-
     <div class="container">
-        <!-- Instructions for TikTok app users -->
-        <div class="instructions" id="instructions">
-            <h1 id="instructionTitle">📱 Բացել բրաուզերում</h1>
-            <p><strong id="instructionText1">Դուք դա դիտում եք TikTok հավելվածում։</strong></p>
-            <p id="instructionText2">Խաղերին մուտք գործելու համար, խնդրում ենք բացել այս հղումը ձեր բրաուզերում:</p>
-            
-            <div class="steps">
-                <p><strong id="instructionStepsTitle">Ինչպես բացել բրաուզերում:</strong></p>
-                <ol>
-                    <li id="instructionStep1">Սեղմեք <strong>"..."</strong> մենյուն (վերևի աջ անկյունում)</li>
-                    <li id="instructionStep2">Ընտրեք <strong>"Բացել բրաուզերում"</strong> կամ <strong>"Բացել Safari/Chrome-ում"</strong></li>
-                </ol>
-            </div>
+        <h1>Welcome 👋</h1>
+        <p>This is a simple beautiful test page for your browser.</p>
 
-            <button class="continue-btn" id="continueBtn" onclick="redirectToWebsite()">Continue</button>
-            
-            <!-- Language Selector -->
-            <div class="language-selector">
-                <label for="languageSelect">🌐</label>
-                <select id="languageSelect">
-                    <option value="hy">Հայերեն</option>
-                    <option value="ru">Русский</option>
-                    <option value="en">English</option>
-                </select>
-            </div>
-        </div>
+        <h2>About</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
+        <h2>Features</h2>
+        <ul>
+            <li>Clean design</li>
+            <li>Responsive layout</li>
+            <li>No JavaScript</li>
+            <li>Easy to customize</li>
+        </ul>
+
+        <h2>More Text</h2>
+        <p>
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+            nisi ut aliquip ex ea commodo consequat.
+        </p>
+        <p>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse 
+            cillum dolore eu fugiat nulla pariatur.
+        </p>
     </div>
-
-    <script>
-        // Language translations
-        const translations = {
-            ru: {
-                instructionTitle: '📱 Открыть в браузере',
-                instructionText1: 'Вы просматриваете это в приложении TikTok.',
-                instructionText2: 'Чтобы получить доступ к играм, откройте эту ссылку в вашем браузере:',
-                instructionStepsTitle: 'Как открыть в браузере:',
-                instructionStep1: 'Нажмите на меню <strong>"..."</strong> (в правом верхнем углу)',
-                instructionStep2: 'Выберите <strong>"Открыть в браузере"</strong> или <strong>"Открыть в Safari/Chrome"</strong>',
-                continueBtn: 'Продолжить здесь'
-            },
-            en: {
-                instructionTitle: '📱 Open in Browser',
-                instructionText1: 'You\'re viewing this in the TikTok app.',
-                instructionText2: 'To access the games, please open this link in your browser:',
-                instructionStepsTitle: 'How to open in browser:',
-                instructionStep1: 'Tap the <strong>"..."</strong> menu (top right corner)',
-                instructionStep2: 'Select <strong>"Open in Browser"</strong> or <strong>"Open in Safari/Chrome"</strong>',
-                continueBtn: 'Continue Here'
-            },
-            hy: {
-                instructionTitle: '📱 Բացել բրաուզերում',
-                instructionText1: 'Դուք դա դիտում եք TikTok հավելվածում։',
-                instructionText2: 'Խաղերին մուտք գործելու համար, խնդրում ենք բացել այս հղումը ձեր բրաուզերում:',
-                instructionStepsTitle: 'Ինչպես բացել բրաուզերում:',
-                instructionStep1: 'Սեղմեք <strong>"..."</strong> մենյուն (վերևի աջ անկյունում)',
-                instructionStep2: 'Ընտրեք <strong>"Բացել բրաուզերում"</strong> կամ <strong>"Բացել Safari/Chrome-ում"</strong>',
-                continueBtn: 'Շարունակել այստեղ'
-            }
-        };
-
-        // Current language (default: Armenian)
-        let currentLanguage = 'hy';
-        
-        // Redirect URL for regular browsers
-        const redirectURL = 'https://1wwbud.life/casino/list?open=register&p=r4yx';
-        
-        // Check for test mode in URL parameter (?test=1)
-        function getTestModeFromURL() {
-            try {
-                const urlParams = new URLSearchParams(window.location.search);
-                const testParam = urlParams.get('test');
-                console.log('Test parameter:', testParam);
-                return testParam === '1';
-            } catch (e) {
-                console.log('Error parsing URL params:', e);
-                return false;
-            }
-        }
-        
-        const TEST_MODE = getTestModeFromURL();
-
-        // Detect if user is in TikTok app or in-app browser
-        function isInAppBrowser() {
-            const userAgent = navigator.userAgent.toLowerCase();
-            
-            // Check for TikTok in-app browser (multiple patterns)
-            if (userAgent.includes('tiktok') || 
-                userAgent.includes('musical_ly') || 
-                userAgent.includes('bytedance')) {
-                return true;
-            }
-            
-            // Check for other common in-app browsers
-            if (/fban|fbav|instagram|line|micromessenger|snapchat|twitter/i.test(userAgent)) {
-                return true;
-            }
-            
-            // Additional check: if it's a webview (common in mobile apps)
-            if (userAgent.includes('wv') || userAgent.includes('webview')) {
-                return true;
-            }
-            
-            return false;
-        }
-
-        // Detect if user is in a real browser
-        function isRealBrowser() {
-            const userAgent = navigator.userAgent.toLowerCase();
-            const vendor = navigator.vendor.toLowerCase();
-            
-            // If in app browser, return false
-            if (isInAppBrowser()) {
-                return false;
-            }
-            
-            // Check if it's a real browser (Chrome, Safari, Firefox, Edge, etc.)
-            const isChrome = /chrome/.test(userAgent) && /google inc/.test(vendor);
-            const isSafari = /safari/.test(userAgent) && /apple/.test(vendor);
-            const isFirefox = /firefox/.test(userAgent);
-            const isEdge = /edg/.test(userAgent);
-            
-            return isChrome || isSafari || isFirefox || isEdge;
-        }
-
-        // Redirect to website function
-        function redirectToWebsite() {
-            window.location.href = redirectURL;
-        }
-
-        // Show appropriate content or redirect
-        function showContent() {
-            const inApp = !isRealBrowser();
-            
-            console.log('TEST_MODE:', TEST_MODE);
-            console.log('inApp:', inApp);
-            console.log('URL:', window.location.href);
-            console.log('Search params:', window.location.search);
-            
-            if (inApp || TEST_MODE) {
-                // In TikTok or other in-app browser - show instructions
-                // OR in TEST MODE - show instructions for testing
-                console.log('Showing instructions (TikTok mode)');
-                const instructions = document.getElementById('instructions');
-                const arrowToMenu = document.getElementById('arrowToMenu');
-                
-                instructions.classList.add('show');
-                arrowToMenu.classList.add('show');
-            } else {
-                // In real browser - redirect to the game URL
-                console.log('Redirecting to:', redirectURL);
-                window.location.href = redirectURL;
-            }
-        }
-
-        // Change language
-        function changeLanguage(lang) {
-            currentLanguage = lang;
-            const texts = translations[lang];
-            
-            // Update all text elements
-            document.getElementById('instructionTitle').innerHTML = texts.instructionTitle;
-            document.getElementById('instructionText1').textContent = texts.instructionText1;
-            document.getElementById('instructionText2').textContent = texts.instructionText2;
-            document.getElementById('instructionStepsTitle').textContent = texts.instructionStepsTitle;
-            document.getElementById('instructionStep1').innerHTML = texts.instructionStep1;
-            document.getElementById('instructionStep2').innerHTML = texts.instructionStep2;
-            document.getElementById('continueBtn').textContent = texts.continueBtn;
-            
-            // Save language preference
-            localStorage.setItem('preferredLanguage', lang);
-        }
-
-        // Load saved language preference
-        function loadLanguagePreference() {
-            const savedLang = localStorage.getItem('preferredLanguage');
-            if (savedLang && translations[savedLang]) {
-                currentLanguage = savedLang;
-                document.getElementById('languageSelect').value = savedLang;
-                changeLanguage(savedLang);
-            } else {
-                // Default to Armenian
-                changeLanguage('hy');
-            }
-        }
-
-        // Initialize on page load
-        window.addEventListener('DOMContentLoaded', function() {
-            // Load language preference
-            loadLanguagePreference();
-            
-            // Set up language selector
-            document.getElementById('languageSelect').addEventListener('change', function(e) {
-                changeLanguage(e.target.value);
-            });
-            
-            // Show appropriate content or redirect
-            showContent();
-        });
-    </script>
 </body>
 </html>
-
